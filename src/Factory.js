@@ -4,7 +4,7 @@
     const MapLayer = require("./MapLayer");
     const Layer = require("./Layer");
     const Sequential = require("./Sequential");
-    const Variable = require("drive-frame").Variable;
+    const Variable = require("./Variable");
     const Network = require("./Network");
 
     class Factory {

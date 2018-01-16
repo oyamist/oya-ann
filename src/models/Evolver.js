@@ -1,6 +1,6 @@
-var mathjs = require("mathjs");
-var Example = require("../Example");
-var Variable = require("drive-frame").Variable;
+const mathjs = require("mathjs");
+const Example = require("../Example");
+const Variable = require("./Variable);
 
 (function(exports) {
     class Evolver {

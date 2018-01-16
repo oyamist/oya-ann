@@ -1,12 +1,12 @@
-var mathjs = require("mathjs");
-var Kinann = require("../index");
 
 // mocha -R min --inline-diffs *.js
 (typeof describe === 'function') && describe("Factory", function() {
-    var should = require("should");
-    var Factory = Kinann.Factory;
-    var Example = Kinann.Example;
-    var Variable = require("drive-frame").Variable;
+    const mathjs = require("mathjs");
+    const Kinann = require("../index");
+    const should = require("should");
+    const Factory = Kinann.Factory;
+    const Example = Kinann.Example;
+    const Variable = Kinann.Variable;
     var MapLayer = Kinann.MapLayer;
     var testVars = [
         new Variable([3, 300]),

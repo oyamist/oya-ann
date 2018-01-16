@@ -13,6 +13,7 @@
     Kinann.Example = require("./src/Example");
     Kinann.Factory = require("./src/Factory");
     Kinann.Equations = require("./src/Equations");
+    Kinann.Variable = require("./src/Variable");
     Kinann.Calibration = require("./src/Calibration");
 
     module.exports = exports.Kinann = Kinann;
