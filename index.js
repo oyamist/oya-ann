@@ -14,7 +14,6 @@
     Kinann.Factory = require("./src/Factory");
     Kinann.Equations = require("./src/Equations");
     Kinann.Calibration = require("./src/Calibration");
-    Kinann.AnnCalibration = require("./src/AnnCalibration");
 
     module.exports = exports.Kinann = Kinann;
 })(typeof exports === "object" ? exports : (exports = {}));
