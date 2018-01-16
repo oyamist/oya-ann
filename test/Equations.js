@@ -119,12 +119,20 @@ var mathjs = require("mathjs");
         eq.lookup(dcost).should.equal("1");
     });
     it("you can customize simplify()", function() {
+        var count = 0;
+        var testSimplify = (node) => {
+            count++; // verify call
+            return mathjs.simplify(node);
+        };
         var eq = new Equations({
-            simplify: mathjs.simplify
+            simplify: testSimplify,
         });
-        eq.lookup(eq.derivative("((x+1)*(x+2))", "x")).should.equal("2 * x + 3"); // mathjs simplify
+        eq.lookup(eq.derivative("((x+1)*(x+2))", "x")).should.equal("2 * (x + 1) + 1"); // mathjs simplify
+        should(count).equal(2);
         eq.lookup(eq.derivative("x/y", "x")).should.equal("1 / y");
+        should(count).equal(4);
         eq.lookup(eq.derivative("x/y", "y")).should.equal("-(x / y ^ 2)");
+        should(count).equal(6);
     });
     it("derivative(fname, variable) generates derivative of quotient", function() {
         var eq = new Equations();

@@ -8,7 +8,6 @@ var Kinann = require("../index");
     var Example = Kinann.Example;
     var Variable = require("drive-frame").Variable;
     var MapLayer = Kinann.MapLayer;
-    var RotaryDelta = Kinann.models.RotaryDelta;
     var testVars = [
         new Variable([3, 300]),
         new Variable([2, 200]),
@@ -211,7 +210,7 @@ var Kinann = require("../index");
             "tanh(x2*w0r2)", // non-linear feed-forward input
         ]);
         var gradC = network.costGradientExpr();
-        gradC.w0r2.length.should.equal(363);
+        gradC.w0r2.length.should.equal(345);
     })
     it("pre-trained quadratic Kinann neural network is accurate to +/-0.001", function() {
         this.timeout(60 * 1000);
@@ -282,7 +281,7 @@ var Kinann = require("../index");
         vassertEqual(invNetwork.activate([4, 3, 2]), [3, 2, 1]);
         vassertEqual(invNetwork.activate([301, 201, 11]), [300, 200, 10]);
         vassertEqual(invNetwork.activate([43, 27, 9]), [42, 26, 8]);
-        vassertEqual(invNetwork.activate([275, 17, 2]), [274, 16, 1]);
+        vassertEqual(invNetwork.activate([275, 17, 2]), [274, 16, 1], 0.002);
     })
     it("Train Kinann network to correct Y-axis skew", function() {
         this.timeout(60 * 1000);
@@ -337,29 +336,6 @@ var Kinann = require("../index");
         var factory = new Factory(vars);
         var knn = factory.createNetwork({
             layers: [map],
-        });
-        var examples = [0, 100, 200].map((x) => new Example([x], [3 * x + 4]));
-        var trainResult = knn.train(examples, {
-            onEpoch: (result) => verbose && result.epochs % 10 === 0 &&
-                console.log("onEpoch", JSON.stringify(result)),
-        });
-        verbose && console.log("trainResult", trainResult);
-        verbose && console.log("weights", knn.weights);
-        knn.activate([75])[0].should.approximately(229, 0.002);
-        knn.activate([175])[0].should.approximately(529, 0.005);
-    });
-    it("RotaryDelta can do linear regression", function() {
-        var verbose = false;
-        var rd = new RotaryDelta();
-        var vars = [
-            new Variable([-40, 40]),
-            new Variable([-40, 40]),
-            new Variable([-40, 40]),
-        ];
-        var factory = new Factory(vars);
-        return;
-        var knn = factory.createNetwork({
-            layers: [rd],
         });
         var examples = [0, 100, 200].map((x) => new Example([x], [3 * x + 4]));
         var trainResult = knn.train(examples, {

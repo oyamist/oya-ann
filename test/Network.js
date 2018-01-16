@@ -113,12 +113,12 @@ var Sequential = require("../src/Sequential");
         var weights = network.initialize();
         var gradC = network.costGradientExpr();
         should.deepEqual(gradC, {
-            w0b0: '(2 * (w0b0 - yt0 + w0r0c0 * x0 + w0r0c1 * x1) + 0) / 2',
-            w0b1: '(2 * (w0b1 - yt1 + w0r1c0 * x0 + w0r1c1 * x1) + 0) / 2',
-            w0r0c0: '(2 * (x0 + 0) * (w0b0 - yt0 + w0r0c0 * x0 + w0r0c1 * x1) + 0) / 2',
-            w0r0c1: '(2 * (x1 + 0) * (w0b0 - yt0 + w0r0c0 * x0 + w0r0c1 * x1) + 0) / 2',
-            w0r1c0: '(2 * (x0 + 0) * (w0b1 - yt1 + w0r1c0 * x0 + w0r1c1 * x1) + 0) / 2',
-            w0r1c1: '(2 * (x1 + 0) * (w0b1 - yt1 + w0r1c0 * x0 + w0r1c1 * x1) + 0) / 2',
+            w0b0: 'w0b0 - yt0 + w0r0c0 * x0 + w0r0c1 * x1',
+            w0b1: 'w0b1 - yt1 + w0r1c0 * x0 + w0r1c1 * x1',
+            w0r0c0: 'x0 * (w0b0 - yt0 + w0r0c0 * x0 + w0r0c1 * x1)',
+            w0r0c1: 'x1 * (w0b0 - yt0 + w0r0c0 * x0 + w0r0c1 * x1)',
+            w0r1c0: 'x0 * (w0b1 - yt1 + w0r1c0 * x0 + w0r1c1 * x1)',
+            w0r1c1: 'x1 * (w0b1 - yt1 + w0r1c0 * x0 + w0r1c1 * x1)',
         });
     })
     it("Network.normalizeInput(examples, options) normalizes input", function() {

@@ -8,6 +8,7 @@ var mathjs = require("mathjs");
     const FunctionNode = mathjs.expression.node.FunctionNode;
     const OperatorNode = mathjs.expression.node.OperatorNode;
     const ParenthesisNode = mathjs.expression.node.ParenthesisNode;
+    console.log("ParenthesisNode", ParenthesisNode);
 
     class Equations {
         constructor(options = {}) {
@@ -58,6 +59,8 @@ var mathjs = require("mathjs");
         }
 
         fastSimplify(node) { // over 200x faster than mathjs.simplify
+            return mathjs.simplify.simplifyCore(node);
+
             if (node.isOperatorNode) {
                 var a0 = this.fastSimplify(node.args[0]);
                 var a1 = node.args[1] && this.fastSimplify(node.args[1]);

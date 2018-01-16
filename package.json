@@ -1,7 +1,7 @@
 {
   "name": "kinann",
   "version": "0.10.0",
-  "description": "Kinematic artificial neural network Javascript library",
+  "description": "artificial neural network Javascript library",
   "main": "index.js",
   "directories": {
     "test": "test",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "drive-frame": "^0.9.1",
-    "mathjs": "^3.9.2",
+    "mathjs": "^3.20.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
@@ -19,9 +19,9 @@
   },
   "scripts": {
     "test": "npm run test:verbose",
-    "test:watch": "mocha -w -R min --inline-diffs",
     "test:test": "mocha -w -R min --inline-diffs -g TEST",
-    "test:verbose": "mocha --inline-diffs"
+    "test:verbose": "mocha --inline-diffs",
+    "test:watch": "mocha -w --inline-diffs"
   },
   "repository": {
     "type": "git",
