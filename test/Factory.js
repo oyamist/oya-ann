@@ -347,4 +347,30 @@
         knn.activate([75])[0].should.approximately(229, 0.002);
         knn.activate([175])[0].should.approximately(529, 0.005);
     });
+    it("TESTTESTpre-trained quadratic Kinann neural network is accurate to +/-0.001", function() {
+        this.timeout(60 * 1000);
+
+        var xyza = [
+            new Variable([0, 300]), // x-axis
+            new Variable([0, 200]), // y-axis
+            new Variable([0, 10]), // z-axis
+            new Variable([0, 360]), // a-axis
+        ];
+        var factory = new Factory(xyza, {
+            power: 2
+        });
+        var network = factory.createNetwork();
+
+        var tolerance = 0.001;
+
+        function testCoord(coord) {
+            var output = network.activate(coord);
+            output.map((y, i) => y.should.approximately(coord[i], tolerance));
+        }
+        testCoord([0, 0, 0, 0]);
+        testCoord([300, 200, 10, 360]);
+        testCoord([10, 20, 5, 270]);
+        testCoord([75, 50, 5, 45]);
+        testCoord([277, 75, 8, 190]);
+    })
 })

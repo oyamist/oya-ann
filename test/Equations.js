@@ -5,7 +5,7 @@ var mathjs = require("mathjs");
     var Equations = require("../src/Equations");
     var https = require("https");
     var fs = require("fs");
-    var gist = fs.readFileSync("test/rotarydeltax.json").toString().replace(/\n/g, " ");
+    var gist = fs.readFileSync("test/gist.json").toString().replace(/\n/g, " ");
 
     it("define(sym,expr) and lookup(sym) define and retrieve named expressions", function() {
         var root = mathjs.parse("y=m*x+b");
@@ -168,7 +168,7 @@ var mathjs = require("mathjs");
     it("gist computes quickly", function() {
         var verbose = false;
         var eq = new Equations();
-        var gist = fs.readFileSync("test/rotarydeltax.json").toString().replace(/\n/g, " ").toString();
+        var gist = fs.readFileSync("test/gist.json").toString().replace(/\n/g, " ").toString();
 
         var msStart = new Date();
         var gistTree = mathjs.parse(gist);
