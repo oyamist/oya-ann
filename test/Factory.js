@@ -5,6 +5,7 @@
     const Kinann = require("../index");
     const should = require("should");
     const Factory = Kinann.Factory;
+    const Network = Kinann.Network;
     const Example = Kinann.Example;
     const Variable = Kinann.Variable;
     var MapLayer = Kinann.MapLayer;
@@ -347,30 +348,49 @@
         knn.activate([75])[0].should.approximately(229, 0.002);
         knn.activate([175])[0].should.approximately(529, 0.005);
     });
-    it("TESTTESTpre-trained quadratic Kinann neural network is accurate to +/-0.001", function() {
+    it("TESTTESTKinann can approximate unkown f(x)", function() {
         this.timeout(60 * 1000);
 
-        var xyza = [
-            new Variable([0, 300]), // x-axis
-            new Variable([0, 200]), // y-axis
-            new Variable([0, 10]), // z-axis
-            new Variable([0, 360]), // a-axis
+        var v = [
+            new Variable([5, 50]), 
         ];
-        var factory = new Factory(xyza, {
-            power: 2
+        var factory = new Factory(v, {
+            power: 5,
+            preTrain: true,
         });
         var network = factory.createNetwork();
-
-        var tolerance = 0.001;
-
-        function testCoord(coord) {
-            var output = network.activate(coord);
-            output.map((y, i) => y.should.approximately(coord[i], tolerance));
+        var examples = [
+            new Example([5],[896]),
+            new Example([10],[1020]),
+            new Example([15],[1147]),
+            new Example([20],[1278]),
+            new Example([25],[1413]),
+            new Example([30],[1548]),
+            new Example([35],[1711]),
+            new Example([40],[1860]),
+            new Example([45],[2009]),
+            new Example([50],[2158]),
+        ];
+        var data = examples.map(e => e);
+        for (var i=0; i< 5; i++) {
+            network.train(data, {
+            });
         }
-        testCoord([0, 0, 0, 0]);
-        testCoord([300, 200, 10, 360]);
-        testCoord([10, 20, 5, 270]);
-        testCoord([75, 50, 5, 45]);
-        testCoord([277, 75, 8, 190]);
+
+        var json = network.toJSON();
+        var network = Network.fromJSON(json);
+        var mse = examples.reduce((a,e) => {
+            var output = network.activate(e.input);
+            var diff = (e.target[0] - output[0]);
+            a += diff * diff;
+            return a;
+        }, 0)/examples.length;
+        examples.forEach(e => {
+            var output = network.activate(e.input);
+            //console.log('output', e.input, output, e.target);
+        });
+        should(mse).below(15);
+        //console.log('mse', mse, json);
+
     })
 })

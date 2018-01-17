@@ -1,6 +1,7 @@
 var mathjs = require("mathjs");
 var Equations = require("../src/Equations");
 var Layer = require("../src/Layer");
+var Variable = require("../src/Variable");
 var MapLayer = require("../src/MapLayer");
 var should = require("should");
 var Network = require("../src/Network");
