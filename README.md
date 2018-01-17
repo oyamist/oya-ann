@@ -55,6 +55,7 @@ Use `npm` to install oya-ann.
 
 ### See Also
 
-* [OyaAnn wiki...](https://github.com/firepick/oya-ann/wiki)
+* [Kinann](https://github.com/firepick/kinann/wiki)
+* [OyaAnn wiki...](https://github.com/oyamist/oya-ann/wiki)
 * [mathjs](http://mathjs.org) many thanks to MathJS for expression parsing and derivatives!
 
