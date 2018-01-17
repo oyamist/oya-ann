@@ -22,13 +22,8 @@
         }
 
         static fromJSON(json) {
-            const DriveFrame = require("drive-frame").DriveFrame;
-            const Calibration = require("./Calibration");
-
             var json = typeof json === 'string' ? JSON.parse(json) : json;
             var obj = Network.fromJSON(json);
-            obj = obj || DriveFrame.fromJSON(json, {calibrationFactory:this.fromJSON});
-            obj = obj || Calibration.fromJSON(json);
             return obj;
         }
 
