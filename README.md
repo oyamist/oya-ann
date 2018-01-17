@@ -32,7 +32,7 @@ With **OyaAnn**, we can generate custom temperature compensation ANNs
 for new nutrient solutions and train them with locally observed data. These
 ANNs can then be archived and re-used as needed.
 
-```JSON
+```js
 var examples = [
     new Example([5],[896]),
     new Example([10],[1020]),
