@@ -8,11 +8,11 @@ according to need and serialized for later use.
 Consider, for example, temperature compensation for conductivity
 measurements (i.e., EC/PPM). EC/PPM probes are temperature sensitive
 and readings will change with temperature. For example, the EC
-of a reference solution having EC=1413 microsiemens @ 25C
+of a reference solution having EC=1413 microsiemens @ 25&deg;C
 may vary as follows 
 ([Atlas Scientific EC-EZO](https://www.atlas-scientific.com/_files/_datasheets/_circuit/EC_EZO_Datasheet.pdf)):
 
-| C    | EC   |
+| &deg;C    | EC   |
 | ---- | ---- |
 | 5    | 896  |
 | 10   | 1020 |
