@@ -55,7 +55,7 @@ Use `npm` to install oya-ann.
 
 ### See Also
 
-* [Kinann](https://github.com/firepick/kinann/wiki)
+* [Kinann](https://github.com/firepick/kinann) OyaAnn is a hard fork of Kinann repurposed for OyaMist applications.
 * [OyaAnn wiki...](https://github.com/oyamist/oya-ann/wiki)
 * [mathjs](http://mathjs.org) many thanks to MathJS for expression parsing and derivatives!
 
