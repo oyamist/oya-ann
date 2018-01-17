@@ -8,7 +8,6 @@ var mathjs = require("mathjs");
     const FunctionNode = mathjs.expression.node.FunctionNode;
     const OperatorNode = mathjs.expression.node.OperatorNode;
     const ParenthesisNode = mathjs.expression.node.ParenthesisNode;
-    console.log("ParenthesisNode", ParenthesisNode);
 
     class Equations {
         constructor(options = {}) {
