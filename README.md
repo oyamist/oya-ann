@@ -25,8 +25,12 @@ may vary as follows
 | 45   | 2009 |
 | 50   | 2158 |
 
-Moreover, solutions with different dissolved solids will exhibit 
-different, non-linear temperature compensation curves.
+To complicate matters further, solutions with different dissolved solids will 
+each exhibit their own individual temperature compensation curves.
+Modeling, calibrating and measuring conductivity for different solutions at
+different temperatures is therefore a challenge. What is needed is a simple
+way to create calibrated models from observed data. Neural networks
+are ideal for this task.
 
 With **OyaAnn**, we can generate custom temperature compensation ANNs 
 for new nutrient solutions and train them with locally observed data. 
