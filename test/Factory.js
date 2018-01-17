@@ -2,13 +2,13 @@
 // mocha -R min --inline-diffs *.js
 (typeof describe === 'function') && describe("Factory", function() {
     const mathjs = require("mathjs");
-    const Kinann = require("../index");
+    const OyaAnn = require("../index");
     const should = require("should");
-    const Factory = Kinann.Factory;
-    const Network = Kinann.Network;
-    const Example = Kinann.Example;
-    const Variable = Kinann.Variable;
-    var MapLayer = Kinann.MapLayer;
+    const Factory = OyaAnn.Factory;
+    const Network = OyaAnn.Network;
+    const Example = OyaAnn.Example;
+    const Variable = OyaAnn.Variable;
+    var MapLayer = OyaAnn.MapLayer;
     var testVars = [
         new Variable([3, 300]),
         new Variable([2, 200]),
@@ -83,7 +83,7 @@
             transform: (data) => data.map((x) => -x)
         }), (x) => -x); // transform is negative
     })
-    it("createNetwork() can create a linear Kinann neural network for identity transform", function() {
+    it("createNetwork() can create a linear OyaAnn neural network for identity transform", function() {
         this.timeout(60 * 1000);
         var factory = new Factory(testVars);
         var network = factory.createNetwork({
@@ -108,7 +108,7 @@
         vassertEqual(network.activate([300, 200, 10]), [300, 200, 10]);
         vassertEqual(network.activate([3, 2, 1]), [3, 2, 1]);
     })
-    it("createNetwork() can create a linear Kinann neural network for negative transform", function() {
+    it("createNetwork() can create a linear OyaAnn neural network for negative transform", function() {
         this.timeout(60 * 1000);
         var factory = new Factory(testVars);
         var network = factory.createNetwork({
@@ -127,7 +127,7 @@
         result.epochs.should.below(100); // training should converge quickly
         result.learningRate.should.below(0.5); // learningRate is typically ~0.15
     })
-    it("createNetwork(options) can create a polynomial Kinann neural network", function() {
+    it("createNetwork(options) can create a polynomial OyaAnn neural network", function() {
         this.timeout(60 * 1000);
         var factory = new Factory(testVars);
         var network = factory.createNetwork({
@@ -150,7 +150,7 @@
             "(x2^3)", // polynomial feed-forward inputs
         ]);
     })
-    it("createNetwork(options) can create a Fourier Kinann neural network", function() {
+    it("createNetwork(options) can create a Fourier OyaAnn neural network", function() {
         this.timeout(10 * 1000);
         var factory = new Factory(testVars);
         var network = factory.createNetwork({
@@ -213,7 +213,7 @@
         var gradC = network.costGradientExpr();
         gradC.w0r2.length.should.equal(345);
     })
-    it("pre-trained quadratic Kinann neural network is accurate to +/-0.001", function() {
+    it("pre-trained quadratic OyaAnn neural network is accurate to +/-0.001", function() {
         this.timeout(60 * 1000);
 
         var xyza = [
@@ -239,7 +239,7 @@
         testCoord([75, 50, 5, 45]);
         testCoord([277, 75, 8, 190]);
     })
-    it("pre-trained linear Kinann neural network is accurate to +/-0.001", function() {
+    it("pre-trained linear OyaAnn neural network is accurate to +/-0.001", function() {
         this.timeout(60 * 1000);
 
         var xyza = [
@@ -284,7 +284,7 @@
         vassertEqual(invNetwork.activate([43, 27, 9]), [42, 26, 8]);
         vassertEqual(invNetwork.activate([275, 17, 2]), [274, 16, 1], 0.002);
     })
-    it("Train Kinann network to correct Y-axis skew", function() {
+    it("Train OyaAnn network to correct Y-axis skew", function() {
         this.timeout(60 * 1000);
 
         var xyza = [
@@ -348,7 +348,7 @@
         knn.activate([75])[0].should.approximately(229, 0.002);
         knn.activate([175])[0].should.approximately(529, 0.005);
     });
-    it("TESTTESTKinann can approximate unkown f(x)", function() {
+    it("TESTTESTOyaAnn can approximate unkown f(x)", function() {
         this.timeout(60 * 1000);
 
         var v = [

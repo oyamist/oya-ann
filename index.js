@@ -1,25 +1,25 @@
 (function(exports) {
     ////////////////// constructor
-    function Kinann() {
+    function OyaAnn() {
         var that = this;
         return that;
     }
 
     ///////////////// class ////////////////////
-    Kinann.Layer = require("./src/Layer");
-    Kinann.MapLayer = require("./src/MapLayer");
-    Kinann.Network = require("./src/Network");
-    Kinann.Sequential = require("./src/Sequential");
-    Kinann.Example = require("./src/Example");
-    Kinann.Factory = require("./src/Factory");
-    Kinann.Equations = require("./src/Equations");
-    Kinann.Variable = require("./src/Variable");
+    OyaAnn.Layer = require("./src/Layer");
+    OyaAnn.MapLayer = require("./src/MapLayer");
+    OyaAnn.Network = require("./src/Network");
+    OyaAnn.Sequential = require("./src/Sequential");
+    OyaAnn.Example = require("./src/Example");
+    OyaAnn.Factory = require("./src/Factory");
+    OyaAnn.Equations = require("./src/Equations");
+    OyaAnn.Variable = require("./src/Variable");
 
-    module.exports = exports.Kinann = Kinann;
+    module.exports = exports.OyaAnn = OyaAnn;
 })(typeof exports === "object" ? exports : (exports = {}));
 
 // mocha -R min --inline-diffs *.js
-(typeof describe === 'function') && describe("Kinann", function() {
-    var Kinann = exports.Kinann; // require("./Kinann");
+(typeof describe === 'function') && describe("OyaAnn", function() {
+    var OyaAnn = exports.OyaAnn; // require("./OyaAnn");
 
 })

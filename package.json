@@ -1,5 +1,5 @@
 {
-  "name": "kinann",
+  "name": "oya-ann",
   "version": "0.10.0",
   "description": "artificial neural network Javascript library",
   "main": "index.js",
@@ -24,21 +24,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/firepick/kinann.git"
+    "url": "git+https://github.com/oyamist/oya-ann.git"
   },
   "keywords": [
-    "kinematics",
-    "robot",
     "artifical",
     "neural",
     "networks",
-    "FirePick",
-    "firenodejs"
+    "OyaMist"
   ],
   "author": "Karl Lew",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/firepick/kinann/issues"
+    "url": "https://github.com/oyamist/oya-ann/issues"
   },
-  "homepage": "https://github.com/firepick/kinann"
+  "homepage": "https://github.com/oyamist/oya-ann"
 }

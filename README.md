@@ -1,45 +1,44 @@
-## Whatizit?
-**Kinann** is a Javascript library for building, training and using 
-artificial neural networks (ANNs) that model real world kinematic errors.
+**oya-ann** is a Javascript library for building, training and using 
+artificial neural networks (ANNs) that can be used to approximate
+and model simple multi-variate relationships. 
+**oya-ann** neural networks can be generated dynamically 
+from observational data
+according to need and serialized for later use.
 
-### Overview
-Kinematic models for robots rarely match their implementations--axes may
-be slightly misallgned, part dimensions may differ from nominal, etc.
-To handle real world conditions, kinematic models are often extended 
-to include error parameters. Unfortunately, the resulting kinematic models
-are often cumbersome and unwieldy to work with.
+Consider, for example, temperature compensation for conductivity
+measurements (i.e., EC/PPM). EC/PPM probes are temperature sensitive
+and readings will change with temperature. For example, the EC
+of a reference solution having EC=1413 microsiemens @ 25C
+may vary as follows 
+([Atlas Scientific EC-EZO](https://www.atlas-scientific.com/_files/_datasheets/_circuit/EC_EZO_Datasheet.pdf)):
 
-Kinann lets you create an artificial neural network (ANN) that bridges
-the gap between a simple, ideal kinematic model and any given implementation
-of that kinematic model. Kinann will handle all the error corrections
-automatically after proper calibration and training. Kinaan doesn't actually
-need to know the precise kinematics of your model--all it does is model
-the mismatch between ideal and actual coordinates. As long as your robot
-is precise, Kinann will make sure that your robot moves accurately to
-application coordinates:
+| C    | EC   |
+| ---- | ---- |
+| 5    | 896  |
+| 10   | 1020 |
+| 15   | 1147 |
+| 20   | 1278 |
+| 25   | 1413 |
+| 30   | 1548 |
+| 35   | 1711 |
+| 40   | 1860 |
+| 45   | 2009 |
+| 50   | 2158 |
 
-   `IdealKinematics` + `Kinann` = `CalibratedRobot`
+Moreover, solutions with different dissolved solids will exhibit 
+different temperature compensation curves.
 
-Kinann kinematic error regression ANNs can be linear or even polynomial.
-Linear Kinann networks are often sufficient for Cartesian kinematics. However,
-you will need polynomial Kinann networks to deal with non-linear kinematics.
-For example, rotary delta kinematic errors often manifest as "bowl-shaped Z-plane errors".
-
-Kinann is designed for building kinematic neural networks for Javascript robot applications. 
-Although there are many neural network frameworks 
-(e.g., [synaptic.js](http://caza.la/synaptic/#/), 
-[Tensorflow](https://www.tensorflow.org/), etc.) that can be used to solve
-the kinematic error challenge, Kinann is optimized for kinematic modeling.
-Kinann should not be used to recognize cat pictures on YouTube.
+With **oya-ann**, we can generate custom temperature compensation ANNs 
+for new nutrient solutions and train them with locally observed data. These
+ANNs can then be archived and re-used as needed.
 
 ### Installation
-Use `npm` to install kinann.
+Use `npm` to install oya-ann.
 
-`npm install kinann`
-
+`npm install oya-ann`
 
 ### See Also
 
-* [Kinann wiki...](https://github.com/firepick/kinann/wiki)
+* [OyaAnn wiki...](https://github.com/firepick/oya-ann/wiki)
 * [mathjs](http://mathjs.org) many thanks to MathJS for expression parsing and derivatives!
 

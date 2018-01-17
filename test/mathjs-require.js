@@ -35,16 +35,16 @@ mathjs.import(require('mathjs/lib/expression'));
 mathjs.import(require('mathjs/lib/constants'));
 //mathjs  = require("mathjs");
 
-var Kinann = require("../index");
-var Factory = Kinann.Factory;
-var Example = Kinann.Example;
+var OyaAnn = require("../index");
+var Factory = OyaAnn.Factory;
+var Example = OyaAnn.Example;
 
 /*
 (typeof describe === 'function') && describe("Factory", function() {
     function vassertEqual(vactual, vexpected, tol=.001) {
         vactual.map((xa,i) => xa.should.approximately(vexpected[i], tol));
     }
-    it("Train Kinann network to correct Y-axis skew", function() {
+    it("Train OyaAnn network to correct Y-axis skew", function() {
         this.timeout(60*1000);
 
         var xyza = [
