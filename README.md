@@ -1,7 +1,7 @@
-**oya-ann** is a Javascript library for building, training and using 
-artificial neural networks (ANNs) that can be used to approximate
+**OyaAnn** is a Javascript library for building, training and using 
+artificial neural networks (ANNs) that approximate
 and model simple multi-variate relationships. 
-**oya-ann** neural networks can be generated dynamically 
+**OyaAnn** neural networks can be generated dynamically 
 from observational data
 according to need and serialized for later use.
 
@@ -26,11 +26,27 @@ may vary as follows
 | 50   | 2158 |
 
 Moreover, solutions with different dissolved solids will exhibit 
-different temperature compensation curves.
+different, non-linear temperature compensation curves.
 
-With **oya-ann**, we can generate custom temperature compensation ANNs 
+With **OyaAnn**, we can generate custom temperature compensation ANNs 
 for new nutrient solutions and train them with locally observed data. These
 ANNs can then be archived and re-used as needed.
+
+```JSON
+var examples = [
+    new Example([5],[896]),
+    new Example([10],[1020]),
+    new Example([15],[1147]),
+    new Example([20],[1278]),
+    new Example([25],[1413]),
+    new Example([30],[1548]),
+    new Example([35],[1711]),
+    new Example([40],[1860]),
+    new Example([45],[2009]),
+    new Example([50],[2158]),
+];
+network.train(examples);
+```
 
 ### Installation
 Use `npm` to install oya-ann.
