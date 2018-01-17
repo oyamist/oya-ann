@@ -1,5 +1,6 @@
 var mathjs = require("mathjs");
 var Equations = require("../src/Equations");
+var Example = require('../index').Example;
 var Layer = require("../src/Layer");
 var Variable = require("../src/Variable");
 var MapLayer = require("../src/MapLayer");
@@ -471,4 +472,61 @@ var Sequential = require("../src/Sequential");
         verbose && console.log("elapsed:", new Date() - msStart);
         //verbose && console.log(network.weights);
     })
+    it("TESTTESTmse(examples) returns mean squared error of examples", function() {
+        var examples = [
+            new Example([0],[0]),
+            new Example([1],[1]),
+            new Example([2],[4]),
+        ];
+        var vars = Variable.variables(examples);
+        /*
+        var nvars = this.vars.length;
+        var fmap = options.fmap || this.vars.map((v, iv) => this.mapIdentity(iv));
+        var power = options.power || this.power;
+        var reps = options.reps || this.reps;
+        var fourier = options.fourier || this.fourier;
+        var mapWeights = Object.assign({}, options.mapWeights);
+        for (var iv = 0; iv < nvars; iv++) {
+            for (var iDeg = 2; iDeg <= power; iDeg++) {
+                fmap.push(this.mapPower(iv, iDeg)); // polynomial
+            }
+            for (var nFreq = 1; nFreq <= fourier; nFreq++) {
+                var w0xf = "w0x" + iv + "f"; // frequency weight
+                var w0xp = "w0x" + iv + "p" + nFreq; // phase weight
+                mapWeights[w0xf] = 1;
+                mapWeights[w0xp] = 0;
+                fmap.push(this.mapFourier(iv, nFreq, w0xf, w0xp));
+            }
+        }
+
+        var mapOpts = {
+            weights: mapWeights,
+        };
+        var layers = options.layers || [
+            new MapLayer(fmap, mapOpts),
+            new Layer(this.nOut, {
+                activation: Layer.ACT_IDENTITY,
+            }),
+        ];
+        var network = new Sequential(nvars, layers);
+
+        var examples = this.createExamples(options);
+        options.onExamples && options.onExamples(examples);
+        network.normalizeInput(examples);
+
+        network.initialize();
+        network.compile();
+
+        var preTrain = options.preTrain == null ? true : options.preTrain;
+        if (preTrain) {
+            var trainOpts = Object.assign({}, options);
+            var tolerance = trainOpts.tolerance || this.tolerance;
+            trainOpts.targetCost = tolerance * tolerance / 4;
+            var result = network.train(examples, trainOpts);
+            options.onTrain && options.onTrain(result);
+        }
+
+        return network;
+    */
+    });
 })

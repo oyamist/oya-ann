@@ -16,6 +16,8 @@
                 throw new Error("Factory cannot generate networks with more outputs than inputs");
             }
             this.power = options.power || 1;
+            this.trainingReps = options.trainingReps || 1; // training repetitions
+            this.maxMSE = options.maxMSE;
             this.fourier = options.fourier || 0;
             this.tolerance = options.tolerance || 0.001;
             return this;
@@ -51,6 +53,8 @@
             var nvars = this.vars.length;
             var fmap = options.fmap || this.vars.map((v, iv) => this.mapIdentity(iv));
             var power = options.power || this.power;
+            var trainingReps = options.trainingReps || this.trainingReps;
+            var maxMSE = options.maxMSE || this.maxMSE;
             var fourier = options.fourier || this.fourier;
             var mapWeights = Object.assign({}, options.mapWeights);
             for (var iv = 0; iv < nvars; iv++) {
@@ -75,7 +79,10 @@
                     activation: Layer.ACT_IDENTITY,
                 }),
             ];
-            var network = new Sequential(nvars, layers);
+            var network = new Sequential(nvars, layers, {
+                trainingReps,
+                maxMSE,
+            });
 
             var examples = this.createExamples(options);
             options.onExamples && options.onExamples(examples);

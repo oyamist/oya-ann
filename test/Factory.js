@@ -1,6 +1,7 @@
 
 // mocha -R min --inline-diffs *.js
 (typeof describe === 'function') && describe("Factory", function() {
+    const winston = require('winston');
     const mathjs = require("mathjs");
     const OyaAnn = require("../index");
     const should = require("should");
@@ -119,7 +120,7 @@
     it("createNetwork() returns training results", function() {
         this.timeout(60 * 1000);
         var factory = new Factory(testVars);
-        var result = {}
+        var result = {};
         var network = factory.createNetwork({
             onTrain: (r) => (result = r),
         });
@@ -281,7 +282,7 @@
         examples.length.should.equal(152);
         vassertEqual(invNetwork.activate([4, 3, 2]), [3, 2, 1]);
         vassertEqual(invNetwork.activate([301, 201, 11]), [300, 200, 10]);
-        vassertEqual(invNetwork.activate([43, 27, 9]), [42, 26, 8]);
+        vassertEqual(invNetwork.activate([43, 27, 9]), [42, 26, 8], 0.002);
         vassertEqual(invNetwork.activate([275, 17, 2]), [274, 16, 1], 0.002);
     })
     it("Train OyaAnn network to correct Y-axis skew", function() {
@@ -349,16 +350,7 @@
         knn.activate([175])[0].should.approximately(529, 0.005);
     });
     it("TESTTESTOyaAnn can approximate unkown f(x)", function() {
-        this.timeout(60 * 1000);
-
-        var v = [
-            new Variable([5, 50]), 
-        ];
-        var factory = new Factory(v, {
-            power: 5,
-            preTrain: true,
-        });
-        var network = factory.createNetwork();
+        //winston.level='debug';
         var examples = [
             new Example([5],[896]),
             new Example([10],[1020]),
@@ -371,26 +363,29 @@
             new Example([45],[2009]),
             new Example([50],[2158]),
         ];
-        var data = examples.map(e => e);
-        for (var i=0; i< 5; i++) {
-            network.train(data, {
-            });
-        }
+        var v = Variable.variables(examples);
+        var maxMSE = 8;
+        var factory = new Factory(v, {
+            power: 7,
+            maxMSE,
+            preTrain: true,
+            trainingReps: 50, // max reps to reach maxMSE
+        });
+        var network = factory.createNetwork();
+        network.train(examples);
+        var mse = network.mse(examples);
+        //console.log('mse', mse);
 
         var json = network.toJSON();
+        var msStart = Date.now();
         var network = Network.fromJSON(json);
-        var mse = examples.reduce((a,e) => {
-            var output = network.activate(e.input);
-            var diff = (e.target[0] - output[0]);
-            a += diff * diff;
-            return a;
-        }, 0)/examples.length;
         examples.forEach(e => {
             var output = network.activate(e.input);
-            //console.log('output', e.input, output, e.target);
+            winston.debug('output', e.input, output, e.target);
         });
-        should(mse).below(15);
-        //console.log('mse', mse, json);
-
+        var mse = network.mse(examples);
+        should(mse).below(maxMSE);
+        var msElapsed = Date.now() - msStart;
+        should(msElapsed).below(100);
     })
 })

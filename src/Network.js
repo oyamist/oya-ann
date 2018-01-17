@@ -6,11 +6,15 @@ var Example = require("./Example");
 
 (function(exports) {
     class Network {
-        constructor(nIn) {
+        constructor(nIn, opts={}) {
+            if (typeof nIn !== 'number') {
+                throw new Error("Expected number of inputs: Network(nIn?, opts)");
+            }
             this.nIn = nIn;
             this.exprIn = Array(nIn).fill().map((e, i) => "x" + i);
             this.layers = [];
             this.inputs = Array(nIn).fill().map((x, i) => "x" + i);
+            this.trainingReps = opts.trainingReps || 1;
         }
 
         add(layer, options = {}) {
@@ -74,9 +78,9 @@ var Example = require("./Example");
             if (metric === "quadratic") {
                 for (var iOut = 0; iOut < exprs.length; iOut++) {
                     costExpr.length && (costExpr += "+");
-                    costExpr += "(" + exprs[iOut] + "-yt" + iOut + ")^2"
+                    costExpr += `(${exprs[iOut]}-yt${iOut})^2`;
                 }
-                costExpr = "(" + costExpr + ")/2"; // 2 disappears with derivative
+                costExpr = `(${costExpr})/2`; // 2 disappears with derivative
             } else {
                 throw new Error("Unsupported cost metric:" + metric);
             }
@@ -217,11 +221,34 @@ var Example = require("./Example");
             this.inStats = Network.exampleStats(examples, "input");
             return this.fNormIn = MapLayer.mapFun(this.nIn, this.inStats, normStats, normalizeInput);
         }
+        mse(examples) {
+            return examples.reduce((a,e) => {
+                var output = this.activate(e.input);
+                var diff = (e.target[0] - output[0]);
+                a += diff * diff;
+                return a;
+            }, 0)/examples.length;
+        }
         train(examples, options = {}) {
             if (!this.scope) {
                 throw new Error("compile() network before train()");
             }
-
+            examples = examples.map(e => e); // shallow copy
+            var maxMSE = options.maxMSE || this.maxMSE;
+            var trainingReps = options.trainingReps || this.trainingReps;
+            var result = {};
+            while (trainingReps-- > 0) {
+                result = this.trainSession(examples, options);
+                if (maxMSE) {
+                    var mse = this.mse(examples);
+                    if (mse <= maxMSE) {
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+        trainSession(examples, options = {}) {
             var result = {};
 
             this.fNormIn || this.normalizeInput(examples, options);
@@ -275,10 +302,9 @@ var Example = require("./Example");
                 prevCost = cost;
             }
 
-            var defaultBatch = examples.length > 10 ?
-                2 // mini-batch gradient descent (normal)
-                :
-                1; // stochastic gradient descent for few examples
+            var defaultBatch = examples.length > 10 
+                ? 2  // mini-batch gradient descent (normal)
+                : 1; // stochastic gradient descent for few examples
             var batch = options.batch || defaultBatch;
             var iBatch = 0;
             var batchScale = 1 / batch;
