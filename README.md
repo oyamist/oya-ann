@@ -29,8 +29,8 @@ Moreover, solutions with different dissolved solids will exhibit
 different, non-linear temperature compensation curves.
 
 With **OyaAnn**, we can generate custom temperature compensation ANNs 
-for new nutrient solutions and train them with locally observed data. These
-ANNs can then be archived and re-used as needed.
+for new nutrient solutions and train them with locally observed data. 
+Once trained, these ANNs can be archived and re-used as needed.
 
 ```js
 var examples = [
