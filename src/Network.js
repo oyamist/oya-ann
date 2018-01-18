@@ -15,6 +15,8 @@ var Example = require("./Example");
             this.layers = [];
             this.inputs = Array(nIn).fill().map((x, i) => "x" + i);
             this.trainingReps = opts.trainingReps || 1;
+            this.targetCost = opts.targetCost || Network.MIN_COST;
+            this.learningRate = opts.learningRate || Network.LEARNING_RATE;
         }
 
         add(layer, options = {}) {
@@ -253,8 +255,8 @@ var Example = require("./Example");
 
             this.fNormIn || this.normalizeInput(examples, options);
             var nEpochs = options.maxEpochs || Network.MAX_EPOCHS;
-            var targetCost = options.targetCost || Network.MIN_COST;
-            var learningRate = options.learningRate || Network.LEARNING_RATE;
+            var targetCost = options.targetCost || this.targetCost;
+            var learningRate = options.learningRate || this.learningRate;
             if (typeof learningRate === "number") {
                 var tHalfLife = nEpochs / 2;
                 var lrMin = options.learningRateMin || learningRate / 10;

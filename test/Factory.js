@@ -9,6 +9,8 @@
     const Network = OyaAnn.Network;
     const Example = OyaAnn.Example;
     const Variable = OyaAnn.Variable;
+    const fs = require('fs');
+    const path = require('path');
     var MapLayer = OyaAnn.MapLayer;
     var testVars = [
         new Variable([3, 300]),
@@ -349,39 +351,54 @@
         knn.activate([75])[0].should.approximately(229, 0.002);
         knn.activate([175])[0].should.approximately(529, 0.005);
     });
-    it("TESTTESTOyaAnn can approximate unkown f(x)", function() {
-        //winston.level='debug';
+    it("TESTTESTOyaAnn can approximate unknown f(x)", function() {
+        this.timeout(3*1000);
+        winston.level='debug';
+        var refExample = new Example([25],[1413]);
+
+        // for best results, we calibrate to the
+        // actual temperatures we expect to see
         var examples = [
-            new Example([5],[896]),
+            //new Example([5],[896]), // too cold for nutrient
             new Example([10],[1020]),
             new Example([15],[1147]),
             new Example([20],[1278]),
-            new Example([25],[1413]),
+            refExample,
             new Example([30],[1548]),
-            new Example([35],[1711]),
-            new Example([40],[1860]),
-            new Example([45],[2009]),
-            new Example([50],[2158]),
+            new Example([35],[1711]), 
+            //new Example([40],[1860]), // too hot for nutrient
+            //new Example([45],[2009]), // too hot for nutrient
+            //new Example([50],[2158]), // too hot for nutrient
         ];
         var v = Variable.variables(examples);
-        var maxMSE = 8;
+        var maxMSE = 1;
         var factory = new Factory(v, {
-            power: 7,
+            power: 5,
             maxMSE,
             preTrain: true,
             trainingReps: 50, // max reps to reach maxMSE
         });
         var network = factory.createNetwork();
         network.train(examples);
+
+        // IMPORTANT: by re-training the network once more on the
+        // reference example, we minimize the error 
+        // at the reference temperature
+        network.train([refExample]);
+        var refOut = network.activate(refExample.input);
+        should(Math.abs(refOut[0] - refExample.target[0])).below(0.001);
+
+        // The mean squared error will distribute to the other temperatures
         var mse = network.mse(examples);
-        //console.log('mse', mse);
+        winston.debug('mse', mse);
 
         var json = network.toJSON();
+        fs.writeFileSync(path.join(__dirname, 'ec-comp.json.data'), JSON.stringify(json,null,2));
         var msStart = Date.now();
         var network = Network.fromJSON(json);
         examples.forEach(e => {
             var output = network.activate(e.input);
-            winston.debug('output', e.input, output, e.target);
+            winston.debug('output', e.input, output, e.target, (output[0]-e.target[0]).toFixed(2));
         });
         var mse = network.mse(examples);
         should(mse).below(maxMSE);
