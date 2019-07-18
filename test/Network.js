@@ -472,7 +472,7 @@ var Sequential = require("../src/Sequential");
         verbose && console.log("elapsed:", new Date() - msStart);
         //verbose && console.log(network.weights);
     })
-    it("TESTTESTmse(examples) returns mean squared error of examples", function() {
+    it("mse(examples) returns mean squared error of examples", function() {
         var examples = [
             new Example([0],[0]),
             new Example([1],[1]),

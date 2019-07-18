@@ -42,7 +42,7 @@ var mathjs = require("mathjs");
         eq.define("y", "(x+1)/(x-1)").should.equal("y");
         eq.lookup("y").should.equal("(x + 1) / (x - 1)"); // mathjs puts in parentheses
     });
-    it("TESTTESTfastSimplify(node) returns simplified node tree", function() {
+    it("fastSimplify(node) returns simplified node tree", function() {
         var eq = new Equations();
         eq.fastSimplify(mathjs.parse("5*x*3")).toString().should.equal("15 * x");
         eq.fastSimplify(mathjs.parse("5*x*3*x")).toString().should.equal("15 * x * x");

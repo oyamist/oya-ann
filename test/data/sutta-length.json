@@ -1,0 +1,10 @@
+[
+{"sutta_uid":"thag1.2","tracks":3,"clicks":3,"segments":5,"text":{"en":150},"startTime":"2019-07-17T20:11:08.907Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":23724},
+{ "sutta_uid": "thag9.1", "tracks": 3, "clicks": 3, "segments": 44, "text": { "en": 1742 }, "startTime": "2019-07-17T14:52:41.929Z", "vnameTrans": "Amy", "vnameRoot": "Aditi", "elapsed": 166300},
+{ "sutta_uid": "thig5.1", "tracks": 3, "clicks": 3, "segments": 24, "text": { "en": 676 }, "startTime": "2019-07-17T14:50:45.819Z", "vnameTrans": "Amy", "vnameRoot": "Aditi", "elapsed": 76245},
+{ "sutta_uid": "thig1.1", "tracks": 3, "clicks": 3, "segments": 6, "text": { "en": 232 }, "startTime": "2019-07-17T14:49:29.057Z", "vnameTrans": "Amy", "vnameRoot": "Aditi", "elapsed": 30371},
+{ "sutta_uid": "an2.1-10", "tracks": 11, "clicks": 11, "segments": 10, "text": { "en": 6569 }, "startTime": "2019-07-17T14:37:13.783Z", "vnameTrans": "Amy", "vnameRoot": "Aditi", "elapsed":588755},
+{ "sutta_uid": "sn1.1", "tracks": 2, "clicks": 2, "segments": 16, "text": { "en": 767 }, "startTime": "2019-07-17T14:32:54.523Z", "vnameTrans": "Amy", "vnameRoot": "Aditi", "elapsed": 74196},
+{"sutta_uid":"sn2.2","tracks":2,"clicks":2,"segments":5,"text":{"en":281,"pali":0,"pli":220},"startTime":"2019-07-18T13:12:17.147Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":31310},
+{"sutta_uid":"dn33","tracks":12,"clicks":12,"segments":95,"text":{"en":84123},"startTime":"2019-07-18T15:50:51.211Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":7417919}
+]

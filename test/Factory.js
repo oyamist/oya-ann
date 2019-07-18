@@ -351,9 +351,9 @@
         knn.activate([75])[0].should.approximately(229, 0.002);
         knn.activate([175])[0].should.approximately(529, 0.005);
     });
-    it("TESTTESTOyaAnn can approximate unknown f(x)", function() {
+    it("OyaAnn can approximate unknown f(x)", function() {
         this.timeout(3*1000);
-        winston.level='debug';
+        //winston.level='debug';
         var refExample = new Example([25],[1413]);
 
         // for best results, we calibrate to the
@@ -393,7 +393,7 @@
         winston.debug('mse', mse);
 
         var json = network.toJSON();
-        fs.writeFileSync(path.join(__dirname, 'ec-comp.json.data'), JSON.stringify(json,null,2));
+        fs.writeFileSync(path.join(__dirname, 'data', 'ec-comp.json'), JSON.stringify(json,null,2));
         var msStart = Date.now();
         var network = Network.fromJSON(json);
         examples.forEach(e => {
