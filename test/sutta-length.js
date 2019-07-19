@@ -15,7 +15,7 @@
     var MapLayer = OyaAnn.MapLayer;
 
     it("TESTTESTOyaAnn can estimate sutta length (MAY FAIL)", function() {
-        this.timeout(5*1000);
+        this.timeout(15*1000);
         winston.level='debug';
         var dataFname = path.join(TESTDATA, 'sutta-length.json');
         var data = JSON.parse(fs.readFileSync(dataFname));
@@ -26,6 +26,7 @@
                 //d.segments,
                 Math.log(d.segments),
                 d.tracks,
+                //Math.log(d.tracks),
             ];
             var target = [
                 d.elapsed/1000,
@@ -42,22 +43,29 @@
             preTrain: true,
             trainingReps: 50, 
         });
-        var network = factory.createNetwork();
-        var resTrain = network.train(examples);
-        should(resTrain.maxCost).below(targetCost);
-        var maxErr = 0;
-        for (var i = 0; i < examples.length; i++) {
-            var ex = examples[i];
-            var resAct = network.activate(ex.input);
-            var err = Math.abs(resAct[0] - ex.target[0]);
-            //console.log(`dbg ${resAct[0]} ${err}`);
-            maxErr = Math.max(maxErr, err);
-        };
-        if (maxErr < 8.9) { // save best network
-            var netfname = path.join(TESTDATA, 'sutta-length.network');
-            fs.writeFileSync(netfname, JSON.stringify(network, null, 2));
-            console.log(`dbg maxErr:${maxErr} netfname:${netfname}`);
-            console.log(`dbg resTrain`, resTrain);
+        //var maxErr = 20; // initial guess
+        var maxErr = 11.2; // initial guess
+        var MAX_TRIALS = 10; // number of networks to generate and test
+        for (var trials = MAX_TRIALS; trials-- > 0; ) {
+            var network = factory.createNetwork();
+            var resTrain = network.train(examples);
+            should(resTrain.maxCost).below(targetCost);
+            var trialErr = 0;
+            for (var i = 0; i < examples.length; i++) {
+                var ex = examples[i];
+                var resAct = network.activate(ex.input);
+                var err = resAct[0] - ex.target[0];
+                var absErr = Math.abs(err);
+                //console.log(`dbg ${resAct[0]} ${err}`, absErr>maxErr?"!!!":"");
+                trialErr = Math.max(trialErr, absErr);
+            };
+            if (trialErr < maxErr) { // save best network
+                var netfname = path.join(TESTDATA, 'sutta-length.network');
+                fs.writeFileSync(netfname, JSON.stringify(network, null, 2));
+                console.log(`saving trialErr:${trialErr} netfname:${netfname}`);
+                //console.log(`dbg resTrain`, resTrain);
+                maxErr = trialErr;
+            }
         }
     })
 })

@@ -6,6 +6,9 @@
 {"sutta_uid":"an2.1-10","tracks":11,"clicks":11,"segments":124,"text":{"en":6588},"startTime":"2019-07-19T00:09:49.353Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":596037},
 {"sutta_uid":"sn1.1","tracks":2,"clicks":2,"segments":20,"text":{"en":939},"startTime":"2019-07-19T00:21:25.339Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":74397},
 {"sutta_uid":"sn2.2","tracks":2,"clicks":2,"segments":9,"text":{"en":354},"startTime":"2019-07-19T00:24:46.302Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":31454},
+{"sutta_uid":"sn56.21","tracks":2,"clicks":2,"segments":23,"text":{"en":1097},"startTime":"2019-07-19T12:34:18.166Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":111267},
+{"sutta_uid":"sn42.11","tracks":2,"clicks":2,"segments":55,"text":{"en":3315},"startTime":"2019-07-19T13:02:26.829Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":292107},
+{"sutta_uid":"sn36.11","tracks":2,"clicks":2,"segments":50,"text":{"en":3001},"startTime":"2019-07-19T13:24:56.631Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":265359},
 
 {"sutta_uid":"dn33","tracks":12,"clicks":12,"segments":1158,"text":{"en":84701},"startTime":"2019-07-18T15:50:51.211Z","vnameTrans":"Amy","vnameRoot":"Aditi","elapsed":7417919}
 ]
