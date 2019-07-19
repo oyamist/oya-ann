@@ -1,7 +1,7 @@
 {
   "type": "Sequential",
-  "nIn": 4,
-  "nOut": 4,
+  "nIn": 3,
+  "nOut": 3,
   "layers": [
     {
       "type": "MapLayer",
@@ -10,92 +10,68 @@
       "fmap": [
         "function anonymous(eIn\n/*``*/) {\nreturn  eIn[0]\n}",
         "function anonymous(eIn\n/*``*/) {\nreturn  eIn[1]\n}",
-        "function anonymous(eIn\n/*``*/) {\nreturn  eIn[2]\n}",
-        "function anonymous(eIn\n/*``*/) {\nreturn  eIn[3]\n}"
+        "function anonymous(eIn\n/*``*/) {\nreturn  eIn[2]\n}"
       ]
     },
     {
       "type": "Layer",
       "id": 1,
-      "nOut": 4,
+      "nOut": 3,
       "activation": "identity"
     }
   ],
   "inStats": [
     {
-      "max": 84123,
-      "min": 150,
-      "mean": 42136.5,
-      "std": 37978.21820734282
+      "max": 84701,
+      "min": 264,
+      "mean": 42482.5,
+      "std": 37233.21724206014
     },
     {
-      "max": 11.340035292518802,
-      "min": 5.0106352940962555,
-      "mean": 8.17533529330753,
-      "std": 2.8625788558423158
-    },
-    {
-      "max": 95,
-      "min": 5,
-      "mean": 50,
-      "std": 40.70403151799809
+      "max": 7.05444965813294,
+      "min": 2.1972245773362196,
+      "mean": 4.62583711773458,
+      "std": 2.1418349376089556
     },
     {
       "max": 12,
       "min": 2,
       "mean": 7,
-      "std": 4.522670168666454
+      "std": 4.409585518440984
     }
   ],
   "fNormIn": [
-    "function anonymous(x\n/*``*/) {\nreturn (x - 42136.5)*0.000023817179331451777\n}",
-    "function anonymous(x\n/*``*/) {\nreturn (x - 8.17533529330753)*0.3159857175243234\n}",
-    "function anonymous(x\n/*``*/) {\nreturn (x - 50)*0.022222222222222223\n}",
+    "function anonymous(x\n/*``*/) {\nreturn (x - 42482.5)*0.00002368629866053981\n}",
+    "function anonymous(x\n/*``*/) {\nreturn (x - 4.62583711773458)*0.4117577354829816\n}",
     "function anonymous(x\n/*``*/) {\nreturn (x - 7)*0.2\n}"
   ],
   "weights": {
-    "w1b0": 3719.5526935466683,
-    "w1r0c0": 3686.7124446567072,
-    "w1r0c1": -12.344058726824864,
-    "w1r0c2": 15.908806145023291,
-    "w1r0c3": 7.891448564225895,
-    "w1b1": 11.340035292518802,
-    "w1r1c0": -6.785988475321288e-16,
-    "w1r1c1": 7.350560436180235e-17,
-    "w1r1c2": -7.678095515127276e-16,
-    "w1r1c3": -4.2403248054610124e-16,
-    "w1b2": 95,
-    "w1r2c0": -6.414045317605927e-15,
-    "w1r2c1": -5.743217556891954e-15,
-    "w1r2c2": 6.4748857983263264e-15,
-    "w1r2c3": 7.037937619709918e-15,
-    "w1b3": 12,
-    "w1r3c0": -5.908563004752421e-16,
-    "w1r3c1": -8.107675009008604e-16,
-    "w1r3c2": 5.734320109595236e-16,
-    "w1r3c3": -2.0725683982972981e-16
+    "w1b0": 3717.675602944567,
+    "w1r0c0": 3678.1739937825055,
+    "w1r0c1": 11.782706613982795,
+    "w1r0c2": 7.05606589502498,
+    "w1b1": 7.05444965813112,
+    "w1r1c0": -1.2356758775281681e-11,
+    "w1r1c1": 2.337268763243004e-11,
+    "w1r1c2": -1.3406003592175865e-11,
+    "w1b2": 2.0000000000033493,
+    "w1r2c0": 2.2737183920383533e-11,
+    "w1r2c1": -4.3006350006851545e-11,
+    "w1r2c2": 2.4667643014519482e-11
   },
   "gradExpr": {
-    "w1b0": "w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2 + w1r0c3 * x3",
-    "w1b1": "w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2 + w1r1c3 * x3",
-    "w1b2": "w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2 + w1r2c3 * x3",
-    "w1b3": "w1b3 - yt3 + w1r3c0 * x0 + w1r3c1 * x1 + w1r3c2 * x2 + w1r3c3 * x3",
-    "w1r0c0": "x0 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2 + w1r0c3 * x3)",
-    "w1r0c1": "x1 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2 + w1r0c3 * x3)",
-    "w1r0c2": "x2 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2 + w1r0c3 * x3)",
-    "w1r0c3": "x3 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2 + w1r0c3 * x3)",
-    "w1r1c0": "x0 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2 + w1r1c3 * x3)",
-    "w1r1c1": "x1 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2 + w1r1c3 * x3)",
-    "w1r1c2": "x2 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2 + w1r1c3 * x3)",
-    "w1r1c3": "x3 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2 + w1r1c3 * x3)",
-    "w1r2c0": "x0 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2 + w1r2c3 * x3)",
-    "w1r2c1": "x1 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2 + w1r2c3 * x3)",
-    "w1r2c2": "x2 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2 + w1r2c3 * x3)",
-    "w1r2c3": "x3 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2 + w1r2c3 * x3)",
-    "w1r3c0": "x0 * (w1b3 - yt3 + w1r3c0 * x0 + w1r3c1 * x1 + w1r3c2 * x2 + w1r3c3 * x3)",
-    "w1r3c1": "x1 * (w1b3 - yt3 + w1r3c0 * x0 + w1r3c1 * x1 + w1r3c2 * x2 + w1r3c3 * x3)",
-    "w1r3c2": "x2 * (w1b3 - yt3 + w1r3c0 * x0 + w1r3c1 * x1 + w1r3c2 * x2 + w1r3c3 * x3)",
-    "w1r3c3": "x3 * (w1b3 - yt3 + w1r3c0 * x0 + w1r3c1 * x1 + w1r3c2 * x2 + w1r3c3 * x3)"
+    "w1b0": "w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2",
+    "w1b1": "w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2",
+    "w1b2": "w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2",
+    "w1r0c0": "x0 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2)",
+    "w1r0c1": "x1 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2)",
+    "w1r0c2": "x2 * (w1b0 - yt0 + w1r0c0 * x0 + w1r0c1 * x1 + w1r0c2 * x2)",
+    "w1r1c0": "x0 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2)",
+    "w1r1c1": "x1 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2)",
+    "w1r1c2": "x2 * (w1b1 - yt1 + w1r1c0 * x0 + w1r1c1 * x1 + w1r1c2 * x2)",
+    "w1r2c0": "x0 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2)",
+    "w1r2c1": "x1 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2)",
+    "w1r2c2": "x2 * (w1b2 - yt2 + w1r2c0 * x0 + w1r2c1 * x1 + w1r2c2 * x2)"
   },
-  "costFunExpr": "((w1b0+w1r0c0*x0+w1r0c1*x1+w1r0c2*x2+w1r0c3*x3-yt0)^2+(w1b1+w1r1c0*x0+w1r1c1*x1+w1r1c2*x2+w1r1c3*x3-yt1)^2+(w1b2+w1r2c0*x0+w1r2c1*x1+w1r2c2*x2+w1r2c3*x3-yt2)^2+(w1b3+w1r3c0*x0+w1r3c1*x1+w1r3c2*x2+w1r3c3*x3-yt3)^2)/2"
+  "costFunExpr": "((w1b0+w1r0c0*x0+w1r0c1*x1+w1r0c2*x2-yt0)^2+(w1b1+w1r1c0*x0+w1r1c1*x1+w1r1c2*x2-yt1)^2+(w1b2+w1r2c0*x0+w1r2c1*x1+w1r2c2*x2-yt2)^2)/2"
 }

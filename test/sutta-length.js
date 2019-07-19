@@ -22,8 +22,9 @@
         var examples = data.map(d => {
             var input = [
                 d.text.en, 
-                Math.log(d.text.en),
-                d.segments,
+                //Math.log(d.text.en),
+                //d.segments,
+                Math.log(d.segments),
                 d.tracks,
             ];
             var target = [
@@ -34,7 +35,7 @@
         //examples.sort((a,b) => a.input[0] - b.input[0]);
         //console.log(`dbg examples`, examples);
         var v = Variable.variables(examples);
-        var targetCost = 10; 
+        var targetCost = 100; 
         var factory = new Factory(v, {
             power: 1,
             targetCost,
@@ -48,10 +49,11 @@
         for (var i = 0; i < examples.length; i++) {
             var ex = examples[i];
             var resAct = network.activate(ex.input);
-            var err = resAct[0] - ex.target[0];
+            var err = Math.abs(resAct[0] - ex.target[0]);
+            //console.log(`dbg ${resAct[0]} ${err}`);
             maxErr = Math.max(maxErr, err);
         };
-        if (maxErr < 0.67) { // save best network
+        if (maxErr < 8.9) { // save best network
             var netfname = path.join(TESTDATA, 'sutta-length.network');
             fs.writeFileSync(netfname, JSON.stringify(network, null, 2));
             console.log(`dbg maxErr:${maxErr} netfname:${netfname}`);
