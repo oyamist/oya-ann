@@ -305,8 +305,8 @@
             transform: (expected) => { // return measured position
                 var yskew = 30;
                 return [ // simulate measurement of machine with 30-degree y-skew
-                    expected[0] + expected[1] * mathjs.sin(yskew * mathjs.PI / 180), // x
-                    expected[1] * mathjs.cos(yskew * mathjs.PI / 180), // y
+                    expected[0] + expected[1] * mathjs.sin(yskew * mathjs.pi / 180), // x
+                    expected[1] * mathjs.cos(yskew * mathjs.pi / 180), // y
                     expected[2], // z
                     expected[3], // a
                 ]

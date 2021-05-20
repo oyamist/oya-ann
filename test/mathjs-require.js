@@ -1,7 +1,10 @@
 var should = require("should");
 
-var core = require('mathjs/core');
-var mathjs = core.create();
+var { create, all, core } = require('mathjs');
+var config = {};
+var mathjs = core && core.create() || create(all, config);
+
+/* TODO
 //mathjs.import(require('mathjs/lib/type/matrix/Matrix'));
 //mathjs.import(require('mathjs/lib/type/matrix/DenseMatrix'));
 //mathjs.import(require('mathjs/lib/function/arithmetic/add'));
@@ -34,6 +37,7 @@ mathjs.import(require('mathjs/lib/function/probability'));
 mathjs.import(require('mathjs/lib/expression'));
 mathjs.import(require('mathjs/lib/constants'));
 //mathjs  = require("mathjs");
+*/
 
 var OyaAnn = require("../index");
 var Factory = OyaAnn.Factory;
@@ -60,8 +64,8 @@ var Example = OyaAnn.Example;
             transform: (expected) => { // return measured position
                 var yskew = 30;
                 return [ // simulate measurement of machine with 30-degree y-skew
-                    expected[0] + expected[1] * mathjs.sin(yskew * mathjs.PI/180), // x
-                    expected[1] * mathjs.cos(yskew * mathjs.PI/180), // y
+                    expected[0] + expected[1] * mathjs.sin(yskew * mathjs.pi/180), // x
+                    expected[1] * mathjs.cos(yskew * mathjs.pi/180), // y
                     expected[2], // z
                     expected[3], // a
                 ]

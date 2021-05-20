@@ -11,7 +11,7 @@ var mathjs = require("mathjs");
         FunctionNode,
         OperatorNode,
         ParenthesisNode,
-    } = mathjs.expression.node || mathjs;
+    } = mathjs.expression && mathjs.expression.node || mathjs;
 
     it("TESTTESTConstantNode", ()=>{
         var node = new ConstantNode(0);

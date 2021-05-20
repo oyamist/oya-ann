@@ -9,7 +9,7 @@ var mathjs = require("mathjs");
         FunctionNode,
         OperatorNode,
         ParenthesisNode,
-    } = mathjs.expression.node || mathjs;
+    } = mathjs.expression && mathjs.expression.node || mathjs;
 
     class Equations {
         constructor(options = {}) {
@@ -271,7 +271,7 @@ var mathjs = require("mathjs");
         digestNode(node) {
             var result = null;
             if (node.isConstantNode) {
-                result = node.value;
+                result = Number(node.value);
             } else if (node.isSymbolNode) {
                 result = node.name;
             } else if (node.isOperatorNode) {
@@ -300,7 +300,11 @@ var mathjs = require("mathjs");
                 throw new Error("TBD digestNode(" + node.type + ")");
             }
 
+            if (typeof result === 'number') {
+                result = '' + result;
+            }
             if (typeof result !== "string") {
+                console.error(`digstNode() Invalid node`, {node, result});
                 throw new Error("DEBUG intenal" + node.type);
             }
             return result;

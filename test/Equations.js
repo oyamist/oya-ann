@@ -7,7 +7,7 @@ var mathjs = require("mathjs");
     var fs = require("fs");
     var gist = fs.readFileSync("test/gist.json").toString().replace(/\n/g, " ");
 
-    it("define(sym,expr) and lookup(sym) define and retrieve named expressions", function() {
+    it("TESTTESTdefine(sym,expr)/lookup(sym) define named exprs", ()=>{
         var root = mathjs.parse("y=m*x+b");
         var eq = new Equations();
         eq.lookup(eq.define("f", "-(x)")).should.equal("-x");
@@ -18,8 +18,8 @@ var mathjs = require("mathjs");
         eq.lookup("123").should.equal("123"); // constant literals are symbols
 
         // lookup may return pre-defined symbols
-        eq.define("PI", mathjs.PI).should.equal("PI");
-        eq.lookup("PI").should.equal("" + mathjs.PI);
+        eq.define("PI", mathjs.pi).should.equal("PI");
+        eq.lookup("PI").should.equal("" + mathjs.pi);
         eq.define("mx", "m*x").should.equal("mx");
         eq.define("y", "m*x+b").should.equal("y");
         eq.lookup("y").should.equal("mx + b"); // note use of mx
@@ -27,7 +27,7 @@ var mathjs = require("mathjs");
         eq.lookup("z").should.equal("sin(y)"); // note use of y
 
         // definitions don't change
-        eq.lookup("PI").should.equal("" + mathjs.PI);
+        eq.lookup("PI").should.equal("" + mathjs.pi);
         eq.lookup("y").should.equal("mx + b");
 
         // sub-expressions are associated with generated symbols
@@ -258,7 +258,7 @@ var mathjs = require("mathjs");
         eq.define("f6", "1+exp(-(a+b*x))");
         should.deepEqual(eq.derivative(["f1", "f2", "f3"]), ["f1_dx", "f2_dx", "f3_dx"]);
         var feval = eq.compile();
-        var x = mathjs.PI / 6;
+        var x = mathjs.pi / 6;
         var a = 1;
         var b = 3;
         feval({

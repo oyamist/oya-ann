@@ -449,7 +449,7 @@ var Sequential = require("../src/Sequential");
         // build a new network using preTrainJson saves ~1500ms
         var msStart = new Date();
         var network = Network.fromJSON(preTrainJson);
-        var theta = 1 * mathjs.PI / 180;
+        var theta = 1 * mathjs.pi / 180;
         var fskew = (input) => [input[0] + input[1] * mathjs.sin(theta), input[1] * mathjs.cos(theta), input[2]];
         examples.map((ex) => makeExample(ex, fskew));
         tests.map((ex) => makeExample(ex, fskew));
