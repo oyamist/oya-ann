@@ -7,7 +7,7 @@ var mathjs = require("mathjs");
     var fs = require("fs");
     var gist = fs.readFileSync("test/gist.json").toString().replace(/\n/g, " ");
 
-    it("TESTTESTdefine(sym,expr)/lookup(sym) define named exprs", ()=>{
+    it("define(sym,expr)/lookup(sym) define named exprs", ()=>{
         var root = mathjs.parse("y=m*x+b");
         var eq = new Equations();
         eq.lookup(eq.define("f", "-(x)")).should.equal("-x");
@@ -72,7 +72,7 @@ var mathjs = require("mathjs");
         eq.fastSimplify(mathjs.parse("3/2")).toString().should.equal("1.5");
         eq.fastSimplify(mathjs.parse("3^2")).toString().should.equal("9");
     });
-    it("derivative(expr, variable) generates derivative of constant and variable", function() {
+    it("TETSTESTderivative(expr, variable) => handles constant and variable", ()=>{
         var eq = new Equations();
 
         // derivative of symbol
@@ -201,6 +201,65 @@ var mathjs = require("mathjs");
         verbose && console.log("derivative rf ms:", msElapsed);
         msElapsed.should.below(1.3 * msParsed); // typically ~10ms
     })
+    it("TESTTESTcompile(fname) compiles Javascript memoization function", function() {
+        var a = 3;
+        var b = 5;
+        var scope = {
+            a: a,
+            b: b
+        };
+        var eq = new Equations();
+        eq.define("f1", "2*(a+b)+1/(a+b)");
+        eq.define("f2", "a-b");
+
+        var feval12 = eq.compile();
+        var scope1 = Object.assign({}, scope);
+        feval12(scope1).should.equal(scope1);
+        scope1.should.properties({
+            a: 3,
+            b: 5,
+            f1: 2 * (a + b) + 1 / (a + b),
+            f2: a - b,
+        });
+        should(scope1.f3).equal(undefined);
+
+        let expected = `
+function EvalEquations($) {try{
+  $._0 = $.a + $.b;
+  $._1 = 2 * $._0;
+  $._2 = 1 / $._0;
+  $._3 = $._1 + $._2;
+  $.f1 = $._3;
+  $._4 = $.a - $.b;
+  $.f2 = $._4;
+  return $;
+}catch(err){throw new Error('Verify parameter values for ["a","b"]: '+err.message);}}
+`.trim();
+        should(feval12.toString()).equal(expected);
+        let symbolExprMap = `
+{
+  "a + b": "_0",
+  "2 * _0": "_1",
+  "1 / _0": "_2",
+  "_1 + _2": "f1",
+  "_3": "f1",
+  "a - b": "f2",
+  "_4": "f2"
+}`.trim();       
+        should(JSON.stringify(eq.symbolExprMap, null, 2)).equal(symbolExprMap);
+
+        let exprSymbolMap = `
+{
+  "_0": "a + b",
+  "_1": "2 * _0",
+  "_2": "1 / _0",
+  "_3": "_1 + _2",
+  "f1": "_3",
+  "_4": "a - b",
+  "f2": "_4"
+}`.trim();
+        should(JSON.stringify(eq.exprSymbolMap, null, 2)).equal(exprSymbolMap);
+    });
     it("compile(fname) compiles Javascript memoization function", function() {
         var a = 3;
         var b = 5;

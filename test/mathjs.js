@@ -21,14 +21,14 @@ var mathjs = require("mathjs");
             valueType: 'number',
         });
     });
-    it("TESTTESTSymbolNode", ()=>{
+    it("SymbolNode", ()=>{
         var node = new SymbolNode("abc");
         should(node.isSymbolNode).equal(true);
         should.deepEqual(Object.assign({}, node), {
             name: 'abc',
         });
     });
-    it("TESTTESTFunctionNode", ()=>{
+    it("FunctionNode", ()=>{
         var n1 = new ConstantNode(1);
         var args = [n1]; // TODO
         var name = "math.pow";
@@ -37,7 +37,7 @@ var mathjs = require("mathjs");
         let fn = new SymbolNode(name);
         should.deepEqual(Object.assign({}, node), { fn, args });
     });
-    it("TESTTESTOperatorNode", ()=>{
+    it("OperatorNode", ()=>{
         var n1 = new ConstantNode(1);
         var n2 = new ConstantNode(2);
         var name = 'add';
@@ -52,7 +52,7 @@ var mathjs = require("mathjs");
             op,
         });
     });
-    it("TESTTESTParenthesisNode", ()=>{
+    it("ParenthesisNode", ()=>{
         let content = new SymbolNode('x');
         var node = new ParenthesisNode(content);
         should(node.isParenthesisNode).equal(true);

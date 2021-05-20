@@ -315,7 +315,7 @@ var mathjs = require("mathjs");
             if (symbol == null) {
                 var digestedNode = mathjs.parse(normalizedExpr);
                 if (digestedNode.isConstantNode) {
-                    return digestedNode.value; // constants are literals
+                    return ''+digestedNode.value; // constants are literals
                 } else if (digestedNode.isSymbolNode && digestedNode.name[0] === '_') {
                     return digestedNode.name; // generated symbol
                 }
@@ -404,7 +404,8 @@ var mathjs = require("mathjs");
 
         compile() {
             var body = "";
-            var isConstant = (name) => '0' <= name[0] && name[0] <= '9' || name[0] === '-';
+            var isConstant = (name) => '0' 
+                <= name[0] && name[0] <= '9' || name[0] === '-';
             this.symbols.forEach((symbol) => {
                 if (!isConstant(symbol)) {
                     var tree = this.symbolTreeMap[symbol].cloneDeep();
@@ -415,7 +416,8 @@ var mathjs = require("mathjs");
                             }
                         } else if (node.isFunctionNode) {
                             node.fn.name = "math." + node.fn.name;
-                        } else if (node.isOperatorNode && node.op === "^") { // Javascript doesn't have "^"
+                        } else if (node.isOperatorNode && node.op === "^") { 
+                            // Javascript doesn't have "^"
                             return new FunctionNode("math.pow", node.args);
                         }
                         return node;
@@ -425,9 +427,13 @@ var mathjs = require("mathjs");
             });
             body += "\n  return $;\n";
             var parms = JSON.stringify(this.parameters());
-            var evaleq = "function EvalEquations($) {try{" +
-                body +
-                "}catch(err){throw new Error('Verify parameter values for " + parms + ": '+err.message);}}";
+            var evaleq = [
+                "function EvalEquations($) {try{",
+                body,
+                "}catch(err){throw new Error('Verify parameter values for ", 
+                parms, 
+                ": '+err.message);}}",
+            ].join('');
             // use Function to create a function with "math" in its lexical environment
             return (new Function("math", "return " + evaleq))(mathjs);
         }
