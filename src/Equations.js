@@ -3,11 +3,13 @@ var mathjs = require("mathjs");
 // TODO: derivative of all mathjs functions
 
 (function(exports) {
-    const ConstantNode = mathjs.expression.node.ConstantNode;
-    const SymbolNode = mathjs.expression.node.SymbolNode;
-    const FunctionNode = mathjs.expression.node.FunctionNode;
-    const OperatorNode = mathjs.expression.node.OperatorNode;
-    const ParenthesisNode = mathjs.expression.node.ParenthesisNode;
+    const {
+        ConstantNode,
+        SymbolNode,
+        FunctionNode,
+        OperatorNode,
+        ParenthesisNode,
+    } = mathjs.expression.node || mathjs;
 
     class Equations {
         constructor(options = {}) {

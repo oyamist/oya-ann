@@ -14,7 +14,7 @@
     const TESTDATA = path.join(__dirname, 'data');
     var MapLayer = OyaAnn.MapLayer;
 
-    it("TESTTESTOyaAnn can estimate sutta length (MAY FAIL)", function() {
+    it("OyaAnn can estimate sutta length (MAY FAIL)", function() {
         this.timeout(15*1000);
         winston.level='debug';
         var dataFname = path.join(TESTDATA, 'sutta-length.json');
