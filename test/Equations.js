@@ -165,7 +165,7 @@ var mathjs = require("mathjs");
         eq.lookup(eq.derivative("cosh(2*x+1)", "x")).should.equal("sinh(2 * x + 1) * 2");
         eq.lookup(eq.derivative("tanh(2*x+1)", "x")).should.equal("sech(2 * x + 1) ^ 2 * 2");
     });
-    it("gist computes quickly", function() {
+    it("TESTTESTgist computes quickly", function() {
         var verbose = false;
         var eq = new Equations();
         var gist = fs.readFileSync("test/gist.json").toString().replace(/\n/g, " ").toString();
