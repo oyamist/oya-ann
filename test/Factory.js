@@ -349,7 +349,7 @@
         verbose && console.log("trainResult", trainResult);
         verbose && console.log("weights", knn.weights);
         knn.activate([75])[0].should.approximately(229, 0.002);
-        knn.activate([175])[0].should.approximately(529, 0.005);
+        knn.activate([175])[0].should.approximately(529, 0.006);
     });
     it("OyaAnn can approximate unknown f(x)", function() {
         this.timeout(3*1000);
