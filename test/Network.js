@@ -19,7 +19,7 @@ var Sequential = require("../src/Sequential");
         id: 1,
     };
 
-    function assertRandom(weights, variance) {
+    function assertRandom(weights, v) {
         var wkeys = Object.keys(weights);
         var w = [];
         for (var iw = 0; iw < wkeys.length; iw++) {
@@ -31,8 +31,9 @@ var Sequential = require("../src/Sequential");
             w[iw].should.not.equal(0);
             (typeof w[iw]).should.equal("number");
         }
-        mathjs.var(w).should.below(variance);
-        mathjs.var(w).should.above(0);
+        let variance = mathjs.var || mathjs.variance;
+        variance(w).should.below(v);
+        variance(w).should.above(0);
     }
     it("Network.compile(exprIn, options) compiles the feed-forward activate() function ", function() {
         var network = new Sequential(2, [new Layer(2)]);

@@ -13,7 +13,7 @@ var MapLayer = require("../src/MapLayer");
         id: 1,
     };
 
-    function assertRandom(weights, variance) {
+    function assertRandom(weights, v) {
         var wkeys = Object.keys(weights);
         var w = [];
         for (var iw = 0; iw < wkeys.length; iw++) {
@@ -25,8 +25,9 @@ var MapLayer = require("../src/MapLayer");
             w[iw].should.not.equal(0);
             (typeof w[iw]).should.equal("number");
         }
-        mathjs.var(w).should.below(variance);
-        mathjs.var(w).should.above(0);
+        let variance = mathjs.var || mathjs.variance;
+        variance(w).should.below(v);
+        variance(w).should.above(0);
     }
     it("Layer(nOut, id, options) creates neural network layer", function() {
         var nOut = 2;
@@ -68,8 +69,9 @@ var MapLayer = require("../src/MapLayer");
             "w1b1+w1r1c0/(1+exp(-(w0b0+w0r0c0*x0+w0r0c1*x1)))+w1r1c1/(1+exp(-(w0b1+w0r1c0*x0+w0r1c1*x1)))+w1r1c2/(1+exp(-(w0b2+w0r2c0*x0+w0r2c1*x1)))",
         ]);
     })
-    it("Layer.initializeLayer(nIn, weights, options) initializes layer weights", function() {
-        // create layer with logistic sigmoid activation typically used for hidden layer(s)
+    it("TESTTESTLayer.initializeLayer(nIn, weights, options) initializes weights", ()=>{
+        // create layer with logistic sigmoid activation 
+        // typically used for hidden layer(s)
         var nIn = 2;
         var nOut = 3;
         var hidden = new Layer(nOut, logistic_opts);

@@ -201,7 +201,7 @@ var mathjs = require("mathjs");
         verbose && console.log("derivative rf ms:", msElapsed);
         msElapsed.should.below(1.3 * msParsed); // typically ~10ms
     })
-    it("TESTTESTcompile(fname) compiles Javascript memoization function", function() {
+    it("compile(fname) compiles Javascript memoization function", function() {
         var a = 3;
         var b = 5;
         var scope = {
@@ -259,6 +259,47 @@ function EvalEquations($) {try{
   "f2": "_4"
 }`.trim();
         should(JSON.stringify(eq.exprSymbolMap, null, 2)).equal(exprSymbolMap);
+    });
+    it("compile(fname) exp", ()=>{
+        var a = 3;
+        var scope = {
+            a: a,
+        };
+        var eq = new Equations();
+        eq.define("f", "exp(a)");
+        var compute = eq.compile();
+        //console.log(`dbg compute`, compute.toString());
+        let ans = compute(scope);
+        let e3 = Math.exp(a);
+        should(ans).properties(scope);
+        should(ans).properties({ _0: e3, f: e3, });
+    });
+    it("compile(fname) pow", ()=>{
+        var a = 2;
+        var b = 3;
+        var scope = {a,b};
+        var eq = new Equations();
+        eq.define("f", "pow(a,b)");
+        var compute = eq.compile();
+        //console.log(`dbg compute`, compute.toString());
+        let ans = compute(scope);
+        should(ans).properties(scope);
+        should(ans).properties({ _0: 8, f: 8, });
+    });
+    it("TESTTESTcompile(fname) ^ ", ()=>{
+        var a = 3;
+        var b = 5;
+        var scope = { a, b, };
+        var eq = new Equations();
+        eq.define("f3", "x^2");
+        var feval = eq.compile();
+        //console.log(`dbg feval`, feval.toString());
+        var x = mathjs.pi / 6;
+        feval({ x, a, b, }).should.properties({
+            a,
+            b,
+            f3: x * x,
+        });
     });
     it("compile(fname) compiles Javascript memoization function", function() {
         var a = 3;

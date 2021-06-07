@@ -11,6 +11,10 @@ var mathjs = require("mathjs");
         ParenthesisNode,
     } = mathjs.expression && mathjs.expression.node || mathjs;
 
+    const MATH3 = mathjs.version.startsWith('3');
+    const MATH_SPACE = MATH3 ? "math." : "Math.";
+    const EQUATION_SPACE = "$.";
+
     class Equations {
         constructor(options = {}) {
             this.symbolExprMap = {};
@@ -46,7 +50,8 @@ var mathjs = require("mathjs");
                     node.args.forEach((arg) => traverse(arg));
                 }
             }
-            Object.keys(this.symbolTreeMap).forEach((symbol) => traverse(this.symbolTreeMap[symbol]));
+            Object.keys(this.symbolTreeMap)
+                .forEach((symbol) => traverse(this.symbolTreeMap[symbol]));
             return Object.keys(parms);
         }
 
@@ -409,20 +414,38 @@ var mathjs = require("mathjs");
             this.symbols.forEach((symbol) => {
                 if (!isConstant(symbol)) {
                     var tree = this.symbolTreeMap[symbol].cloneDeep();
-                    tree = tree.transform((node, path, parent) => {
+                    let transformNode = (node, path, parent) => {
                         if (node.isSymbolNode) {
                             if (!isConstant(node.name)) {
-                                node.name = "$." + node.name;
+                                if (node.name.startsWith(MATH_SPACE)) {
+                                    // do nothing
+                                } else {
+                                    node.name = EQUATION_SPACE + node.name;
+                                }
                             }
                         } else if (node.isFunctionNode) {
-                            node.fn.name = "math." + node.fn.name;
+                            node.fn.name = MATH_SPACE + node.fn.name;
                         } else if (node.isOperatorNode && node.op === "^") { 
+                            let {args} = node;
+                            for (let i = 0; i< args.length; i++) {
+                                let a = args[i];
+                            }
                             // Javascript doesn't have "^"
-                            return new FunctionNode("math.pow", node.args);
+                            if (!MATH3) {
+                                args = args.map(a=>a.transform(transformNode));
+                            }
+                            return new FunctionNode(`${MATH_SPACE}pow`, args);
                         }
                         return node;
-                    });
-                    body += "\n  $." + symbol + " = " + tree.toString() + ";";
+                    };
+                    tree = tree.transform(transformNode);
+                    body += [
+                        `\n  ${EQUATION_SPACE}`,
+                        symbol,
+                        " = ",
+                        tree.toString(),
+                        ";",
+                    ].join('');
                 }
             });
             body += "\n  return $;\n";
