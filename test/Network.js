@@ -18,6 +18,7 @@ var Sequential = require("../src/Sequential");
         activation: "identity",
         id: 1,
     };
+    this.timeout(10*1000);
 
     function assertRandom(weights, v) {
         var wkeys = Object.keys(weights);
